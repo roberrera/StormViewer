@@ -83,6 +83,14 @@
 				D459876B1D774CFF000F8825 /* Assets.xcassets */,
 				D459876D1D774CFF000F8825 /* LaunchScreen.storyboard */,
 				D45987701D774CFF000F8825 /* Info.plist */,
+				D459879E1D774EC1000F8825 /* Content */,
+			);
+			path = StormViewer;
+			sourceTree = "<group>";
+		};
+		D459879E1D774EC1000F8825 /* Content */ = {
+			isa = PBXGroup;
+			children = (
 				D459878A1D774E8C000F8825 /* nssl0033.jpg */,
 				D459878B1D774E8C000F8825 /* nssl0034.jpg */,
 				D459878C1D774E8C000F8825 /* nssl0041.jpg */,
@@ -94,7 +102,7 @@
 				D45987921D774E8C000F8825 /* nssl0051.jpg */,
 				D45987931D774E8C000F8825 /* nssl0091.jpg */,
 			);
-			path = StormViewer;
+			name = Content;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

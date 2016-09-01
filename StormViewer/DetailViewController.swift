@@ -60,6 +60,8 @@ class DetailViewController: UIViewController {
                 fbVC.addImage(self.detailImageView.image!)
                 fbVC.addURL(NSURL(string: "http://www.photolib.noaa.gov/nssl"))
                 self.presentViewController(fbVC, animated: true, completion: nil)
+            } else {
+                self.showAlertDialog("You must be logged in to Facebook")
             }
         })
     }
@@ -72,8 +74,25 @@ class DetailViewController: UIViewController {
                 twitterVC.addImage(self.detailImageView.image!)
                 twitterVC.addURL(NSURL(string: "http://www.photolib.noaa.gov/nssl"))
                 self.presentViewController(twitterVC, animated: true, completion: nil)
+            } else {
+                self.showAlertDialog("You must be logged in to Twitter")
             }
         })
+    }
+    
+    func showAlertDialog(message: String, var alertTitle: String? = nil, var alertStyle: UIAlertActionStyle? = nil, alertActionHandler: ((UIAlertAction) -> Void )? = nil) {
+        let alertController = UIAlertController(title: "Share", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        
+        if alertTitle == nil {
+            alertTitle = "Okay"
+        }
+        
+        if alertStyle == nil {
+            alertStyle = UIAlertActionStyle.Default
+        }
+        
+        alertController.addAction(UIAlertAction(title: alertTitle!, style: alertStyle!, handler: alertActionHandler))
+        self.presentViewController(alertController, animated: true, completion: nil)
     }
 
     override func viewDidLoad() {

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Social
 
 class DetailViewController: UIViewController {
 
@@ -29,9 +30,50 @@ class DetailViewController: UIViewController {
     }
     
     func shareTapped() {
-        let vc = UIActivityViewController(activityItems: [detailImageView.image!], applicationActivities: [])
-        vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
-        presentViewController(vc, animated: true, completion: nil)
+        let actionSheet = UIAlertController(title: "", message: "Share this storm", preferredStyle: .ActionSheet)
+        
+        let actionTweet = shareToTwitter()
+        let actionFacebook = shareToFacebook()
+        let actionShareSheet = shareSheet()
+        
+        actionSheet.addAction(actionTweet)
+        actionSheet.addAction(actionFacebook)
+        actionSheet.addAction(actionShareSheet)
+        
+        presentViewController(actionSheet, animated: true, completion: nil)
+        
+    }
+    
+    func shareSheet() -> UIAlertAction {
+        return UIAlertAction(title: "More options", style: .Default, handler: { (action) -> Void in
+            let vc = UIActivityViewController(activityItems: [self.detailImageView.image!], applicationActivities: [])
+            vc.popoverPresentationController?.barButtonItem = self.navigationItem.rightBarButtonItem
+            self.presentViewController(vc, animated: true, completion: nil)
+        })
+    }
+    
+    func shareToFacebook() -> UIAlertAction {
+        return UIAlertAction(title: "Share on Facebook", style: .Default, handler: { (action) -> Void in
+            // Check if service is available
+            if SLComposeViewController.isAvailableForServiceType(SLServiceTypeFacebook) {
+                let fbVC = SLComposeViewController(forServiceType: SLServiceTypeFacebook)
+                fbVC.addImage(self.detailImageView.image!)
+                fbVC.addURL(NSURL(string: "http://www.photolib.noaa.gov/nssl"))
+                self.presentViewController(fbVC, animated: true, completion: nil)
+            }
+        })
+    }
+    
+    func shareToTwitter() -> UIAlertAction {
+        return UIAlertAction(title: "Tweet this", style: .Default, handler: { (action) -> Void in
+            // Check if service is available
+            if SLComposeViewController.isAvailableForServiceType(SLServiceTypeTwitter) {
+                let twitterVC = SLComposeViewController(forServiceType: SLServiceTypeTwitter)
+                twitterVC.addImage(self.detailImageView.image!)
+                twitterVC.addURL(NSURL(string: "http://www.photolib.noaa.gov/nssl"))
+                self.presentViewController(twitterVC, animated: true, completion: nil)
+            }
+        })
     }
 
     override func viewDidLoad() {

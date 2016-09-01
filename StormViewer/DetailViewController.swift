@@ -10,7 +10,6 @@ import UIKit
 
 class DetailViewController: UIViewController {
 
-
     @IBOutlet weak var detailImageView: UIImageView!
 
     var detailItem: String? {
@@ -40,6 +39,15 @@ class DetailViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.hidesBarsOnTap = true
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.hidesBarsOnTap = false
+    }
 
 }
 
